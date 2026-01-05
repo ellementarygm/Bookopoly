@@ -1,0 +1,237 @@
+[
+    {
+        "index": 0,
+        "path": "assets/GoSpace.svg",
+        "type": "goSpace"
+    },
+    {
+        "index": 1,
+        "path": "assets/Brown1.svg",
+        "type": "basic",
+        "prompt": "A book with more than 500 pages"
+    },
+    {
+        "index": 2,
+        "path": "assets/CommunityChest.svg",
+        "type": "community_chest"
+    },
+    {
+        "index": 3,
+        "path": "assets/Brown2.svg",
+        "type": "basic",
+        "prompt": "A book with less than 300 pages"
+    },
+    {
+        "index": 4,
+        "path": "assets/IncomeTax.svg",
+        "type": "basic",
+        "prompt": "Income Tax: A book on Kindle Unlimited or from the library"
+    },
+    {
+        "index": 5,
+        "path": "assets/SeasonalSpring.svg",
+        "type": "basic",
+        "prompt": "Seasonal Read: A book set in spring"
+    },
+    {
+        "index": 6,
+        "path": "assets/LtBlue1.svg",
+        "type": "basic",
+        "prompt": "A book released 5+ years ago"
+    },
+    {
+        "index": 7,
+        "path": "assets/Chance.svg",
+        "type": "chance"
+    },
+    {
+        "index": 8,
+        "path": "assets/LtBlue2.svg",
+        "type": "basic",
+        "prompt": "A book released this year"
+    },
+    {
+        "index": 9,
+        "path": "assets/LtBlue3.svg",
+        "type": "basic",
+        "prompt": "A book released in the last 5 (full calendar) years"
+    },
+    {
+        "index": 10,
+        "path": "assets/AnimalSanctuary.svg",
+        "type": "basic",
+        "prompt": "Animal Sanctuary: A book with an animal on the cover or in the title"
+    },
+    {
+        "index": 11,
+        "path": "assets/Pink1.svg",
+        "type": "basic",
+        "prompt": "A book featuring a trope you love"
+    },
+    {
+        "index": 12,
+        "path": "assets/ElectricCompany.svg",
+        "type": "random",
+        "prompt": "Electric Company: A book with a cover with a randomly generated color",
+        "modifier": "randomColor"
+    },
+    {
+        "index": 13,
+        "path": "assets/Pink2.svg",
+        "type": "basic",
+        "prompt": "A book a friend loved (rated 4+ stars)"
+    },
+    {
+        "index": 14,
+        "path": "assets/Pink3.svg",
+        "type": "basic",
+        "prompt": "A book set in a setting you love"
+    },
+    {
+        "index": 15,
+        "path": "assets/SeasonalSummer.svg",
+        "type": "basic",
+        "prompt": "Seasonal Read: A book set in summer"
+    },
+    {
+        "index": 16,
+        "path": "assets/Orange1.svg",
+        "type": "basic",
+        "prompt": "A book with a 5+ word title"
+    },
+    {
+        "index": 17,
+        "path": "assets/CommunityChest.svg",
+        "type": "community_chest"
+    },
+    {
+        "index": 18,
+        "path": "assets/Orange2.svg",
+        "type": "basic",
+        "prompt": "A book with a three-word title"
+    },
+    {
+        "index": 19,
+        "path": "assets/Orange3.svg",
+        "type": "basic",
+        "prompt": "A book with a one-word title"
+    },
+    {
+        "index": 20,
+        "path": "assets/DiversityRead.svg",
+        "type": "basic",
+        "prompt": "Diversity Read: Read a book that intentionally centers the voices and experiences of underrepresented or marginalized groups"
+    },
+    {
+        "index": 21,
+        "path": "assets/Red1.svg",
+        "type": "basic",
+        "prompt": "The first book in a new series"
+    },
+    {
+        "index": 22,
+        "path": "assets/Chance.svg",
+        "type": "chance"
+    },
+    {
+        "index": 23,
+        "path": "assets/Red2.svg",
+        "type": "basic",
+        "prompt": "A standalone book (not part of a series)"
+    },
+    {
+        "index": 24,
+        "path": "assets/Red3.svg",
+        "type": "basic",
+        "prompt": "The next book in a series"
+    },
+    {
+        "index": 25,
+        "path": "assets/SeasonalAutumn.svg",
+        "type": "basic",
+        "prompt": "Seasonal Read: A book set in autumn"
+    },
+    {
+        "index": 26,
+        "path": "assets/Yellow1.svg",
+        "type": "basic",
+        "prompt": "A book with a cover featuring an object"
+    },
+    {
+        "index": 27,
+        "path": "assets/Yellow2.svg",
+        "type": "basic",
+        "prompt": "A book with a cover featuring an place"
+    },
+    {
+        "index": 28,
+        "path": "assets/WaterWorks.svg",
+        "type": "random",
+        "prompt": "Water Works: Title with a randomly generated letter",
+        "modifier":"randomLetter"
+    },
+    {
+        "index": 29,
+        "path": "assets/Yellow3.svg",
+        "type": "basic",
+        "prompt": "A book with a cover featuring a person"
+    },
+    {
+        "index": 30,
+        "path": "assets/GoToAs.svg",
+        "type": "moveTo",
+        "destination": 10
+    },
+    {
+        "index": 31,
+        "path": "assets/Green1.svg",
+        "type": "basic",
+        "prompt": "A book by an author you've never read before"
+    },
+    {
+        "index": 32,
+        "path": "assets/Green2.svg",
+        "type": "basic",
+        "prompt": "A book by more than one author"
+    },
+    {
+        "index": 33,
+        "path": "assets/CommunityChest.svg",
+        "type": "community_chest"
+    },
+    {
+        "index": 34,
+        "path": "assets/Green3.svg",
+        "type": "basic",
+        "prompt": "A book by an author you've read before"
+    },
+    {
+        "index": 35,
+        "path": "assets/SeasonalWinter.svg",
+        "type": "basic",
+        "prompt": "Seasonal Read: A book set in winter"
+    },
+    {
+        "index": 36,
+        "path": "assets/Chance.svg",
+        "type": "chance"
+    },
+    {
+        "index": 37,
+        "path": "assets/Blue1.svg",
+        "type": "basic",
+        "prompt": "The lowest rated book on your To Be Read (TBR) list"
+    },
+    {
+        "index": 38,
+        "path": "assets/LuxuryTax.svg",
+        "type": "basic",
+        "prompt": "Luxury Tax: A book you physically own"
+    },
+    {
+        "index": 39,
+        "path": "assets/Blue2.svg",
+        "type": "basic",
+        "prompt":  "The highest rated book on your To Be Read (TBR) list"
+    }
+]

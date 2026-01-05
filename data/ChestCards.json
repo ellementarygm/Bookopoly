@@ -1,0 +1,177 @@
+[
+  {
+    "id": 1,
+    "title": "GO FOR IT",
+    "description": "Play this card to advance your token immediately to the GO space and collect your reward as usual.",
+    "action": "move_to_index",
+    "destination": 0,
+    "condition": "no_jail"
+  },
+  {
+    "id": 2,
+    "title": "TREAT YO'SELF",
+    "description": "Play this card so the next time you land on the Go to Animal Sanctuary space, you move directly to GO instead. Collect your GO reward as usual.",
+    "action": "animal_sanctuary_go"
+  },
+  {
+    "id": 3,
+    "title": "GET OUT OF JAIL FREE",
+    "description": "Play this card to reject a prompt and roll again without being jailed (no 2-book penalty).",
+    "action": "reject_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 4,
+    "title": "MOOD SWING",
+    "description": "Play this card to DNF a book without having to select a new book to finish the prompt.",
+    "action": "dnf_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 5,
+    "title": "PLOT TWIST",
+    "description": "Play this card to gain a reroll!",
+    "action": "reroll"
+  },
+  {
+    "id": 6,
+    "title": "SKELETON KEY",
+    "description": "Play this card to replace your current prompt with any other prompt on the board for this turn only.",
+    "action": "choose_any_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 7,
+    "title": "THE SCENIC ROUTE",
+    "description": "Play this card to advance to the Seasonal Read space of the current season. Collect your GO reward if you pass GO.",
+    "action": "move_to_current_season",
+    "condition": "no_jail"
+
+  },
+  {
+    "id": 8,
+    "title": "READING SPRINT",
+    "description": "Play this card to advance 3 spaces and complete that prompt instead.",
+    "action": "move_to_any_three",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 9,
+    "title": "TIME SERVED",
+    "description": "Play this card to receive credit for time served. If you are in Jail for a rejection, you only have to finish the first book to clear the prompt.",
+    "action": "remove_jail",
+    "condition": "in_jail"
+  },
+  {
+    "id": 10,
+    "title": "BUDDY READ",
+    "description": "Play this card to choose any book a friend has read this calendar year (2026) to read; it fulfills your current prompt regardless of the space you're on.",
+    "action": "replace_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 11,
+    "title": "GIFT CARD",
+    "description": "Play this card to choose any book you've been rabid to read; it fulfills your current prompt regardless of the space you're on.",
+    "action": "replace_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 12,
+    "title": "ESCAPE ARTIST",
+    "description": "Play this card to skip your current prompt entirely and roll again.",
+    "action": "skip_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 13,
+    "title": "COVER GIRL",
+    "description": "Play this card to choose a book with a cover you find irresistible; it fulfills your current prompt regardless of the space you're on.",
+    "action": "replace_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 14,
+    "title": "TIME WARP",
+    "description": "Play this card to swap your current prompt for the one directly across the board from it (do not move your token; just read a book for the other prompt).",
+    "action": "swap_prompt_across",
+    "condition": "has_prompt_across"
+  },
+  {
+    "id": 15,
+    "title": "DIVERSIFY",
+    "description": "Play this card to advance immediately to the Diversity Read space. Collect your GO reward if you pass GO.",
+    "action": "move_to_index",
+    "destination": 20,
+    "condition": "no_jail"
+  },
+  {
+    "id": 16,
+    "title": "PROPERTY VALUE",
+    "description": "Play this card to swap your current prompt for a prompt on any property of the same color as your current space (do not move your token; just read a book for the other prompt). This card can only be used on property spaces.",
+    "action": "swap_prompt_color",
+    "condition": "has_property_color"
+  },
+  {
+    "id": 17,
+    "title": "COMMUNITY SERVICE",
+    "description": "Play this card to advance immediately to the Animal Sanctuary to volunteer. Because you are arriving by choice, you may collect your GO reward on the way.",
+    "action": "move_to_index",
+    "destination": 10
+  },
+  {
+    "id": 18,
+    "title": "SIDE-EYE",
+    "description": "Play this card to swap your current prompt for any other prompt located on the same side of the board as your current space (do not move your token; just read a book for the other prompt).",
+    "action": "swap_prompt_side",
+    "condition": "has_side_prompt"
+  },
+  {
+    "id": 19,
+    "title": "SEASONS GREETINGS",
+    "description": "Play this card to advance to the next nearest Seasonal Read space. Collect your GO reward if you pass GO.",
+    "action": "move_to_seasonal",
+    "condition": "no_jail"
+  },
+  {
+    "id": 20,
+    "title": "POWER SURGE",
+    "description": "Play this card to advance to the next nearest Utility (Water Works or Electric Company) space. Collect your GO reward if you pass GO.",
+    "action": "move_to_utility",
+    "condition": "no_jail"
+  },
+  {
+    "id": 21,
+    "title": "DOUBLE DIVIDEND",
+    "description": "Play this card to collect a second reward the next time you pass GO.",
+    "action": "double_next_go"
+  },
+  {
+    "id": 22,
+    "title": "CURRENT EVENTS",
+    "description": "Play this card to choose any book you've added to your TBR this calendar year (2026) to read; it fulfills your current prompt regardless of what space you're on.",
+    "action": "replace_prompt",
+    "condition": "has_prompt"
+  },
+  {
+    "id": 23,
+    "title": "SPOILER ALERT",
+    "description": "Play this card to look ahead at the next 3 spaces on the board and choose any of those spaces to advance to. Collect your GO reward if you pass GO.",
+    "action": "move_to_any_three",
+    "condition": "no_jail"
+  },
+  {
+    "id": 24,
+    "title": "PAROLE",
+    "description": "Play this card to choose any prompt on the board to fulfill your second-book penalty if you are under a Jail penalty (the first book must be the prompt for the space you're currently on).",
+    "action": "choose_any_prompt",
+    "condition": "in_jail_1"
+  },
+  {
+    "id": 25,
+    "title": "SELECTIVE MEMORY",
+    "description": "Play this card to choose any Chance prompt to replace your current prompt.",
+    "action": "choose_any_chance",
+    "condition": "has_prompt"
+  }
+]

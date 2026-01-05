@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/favicon3.png">
+
+    <title>Bookopoly</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div id="game-scale">
+        <div id="board-wrapper">
+            <svg id="board"></svg>
+            <div id="goCounter" class="goCounter">
+                <div>
+                    <p class="cursive">Go Rewards</p>
+                    <button id="go-reward-btn">
+                        <img src="assets/star.svg" alt="Use Reward"
+                            style="width:24px; height:24px; vertical-align:middle;">
+                        Claim
+                    </button>
+                </div>
+                <div>
+                    <p>Earned: <span id="goCounterEarned">0</span></p>
+                    <p>Claimed: <span id="goCounterClaimed">0</span></p>
+                </div>
+            </div>
+            <div class="bottomControls">
+                <div class="buttons">
+                    <button id="roll-btn">
+                        <img src="assets/RollIcon.svg" alt="Roll Dice"
+                            style="width:24px; height:24px; vertical-align:middle;">
+                        Roll
+                    </button>
+                    <button id="current-btn" class="icon-btn">
+                        <img src="assets/CurrentIcon.svg" alt="Current Space"
+                            style="width:24px; height:24px; vertical-align:middle;">
+                        Prompts
+                    </button>
+                    <button id="cards-btn" class="icon-btn has-badge">
+                        <img src="assets/ChestIcon.svg" alt="My Cards"
+                            style="width:24px; height:24px; vertical-align:middle;">
+                        Cards
+                        <span id="card-badge" class="badge">0</span>
+                    </button>
+                    <button id="rules-btn">
+                        <img src="assets/RulesIcon.svg" alt="Rules"
+                            style="width:24px; height:24px; vertical-align:middle;">
+                        Rules
+                    </button>
+                    <button id="settings-btn">
+                        <img src="assets/cogs.svg" alt="Settings"
+                            style="width:24px; height:24px; vertical-align:middle;">
+                    </button>
+                </div>
+
+            </div>
+            <div id="cards-overlay" class="hidden">
+                <button id="close-btn" class="button">&times;</button>
+                <div id="player-cards" class="no-select">
+                    <div id="left-card" class="player-card">
+                        <img class="card-front-img">
+                        <div class="card-text-overlay">
+                            <h2 class="card-title"></h2>
+                            <p class="card-desc"></p>
+                        </div>
+                    </div>
+                    <div id="current-card" class="player-card glow-bloom">
+                        <img class="card-front-img">
+                        <div class="card-text-overlay">
+                            <h2 class="card-title"></h2>
+                            <p class="card-desc"></p>
+                        </div>
+                    </div>
+                    <div id="right-card" class="player-card">
+                        <img class="card-front-img">
+                        <div class="card-text-overlay">
+                            <h2 class="card-title"></h2>
+                            <p class="card-desc"></p>
+                        </div>
+                    </div>
+                </div>
+                <button id="play-btn" class="button">Play Card</button>
+            </div>
+            <div id="space-overlay" class="hidden">
+                <div class="space-modal">
+
+                    <div class="card no-select">
+                        <div class="card-pulse">
+
+                            <div class="card-rotate">
+
+                                <div class="card-inner" id="card-inner">
+
+
+                                    <div class="card-face card-back">
+                                        <img id="card-back" />
+                                    </div>
+
+                                    <div class="card-face card-front">
+                                        <img id="card-front-img">
+                                        <div id="card-text-overlay">
+                                            <h2 id="card-title"></h2>
+                                            <p id="card-desc"></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="take-card-btn">Take Card</button>
+                </div>
+            </div>
+
+            <div id="dice-overlay" class="hidden">
+                <div id="cube">
+                    <div class="front"><span class="dot dot1"></span></div>
+                    <div class="back"><span class="dot dot1"></span><span class="dot dot2"></span></div>
+                    <div class="right"><span class="dot dot1"></span><span class="dot dot2"></span><span
+                            class="dot dot3"></span></div>
+                    <div class="left"><span class="dot dot1"></span><span class="dot dot2"></span><span
+                            class="dot dot3"></span><span class="dot dot4"></span></div>
+                    <div class="top"><span class="dot dot1"></span><span class="dot dot2"></span><span
+                            class="dot dot3"></span><span class="dot dot4"></span><span class="dot dot5"></span></div>
+                    <div class="bottom"><span class="dot dot1"></span><span class="dot dot2"></span><span
+                            class="dot dot3"></span><span class="dot dot4"></span><span class="dot dot5"></span><span
+                            class="dot dot6"></span></div>
+                </div>
+
+                <div id="dice-result-banner">
+                    <div id="dice-result-text"></div>
+                    <div id="dice-result-buttons">
+                        <button id="confirm-roll">Move</button>
+                        <button id="reroll-roll">
+                            <img src="assets/RollIcon.svg" alt="Reroll Dice"
+                                style="width:24px; height:24px; vertical-align:middle;">
+                            Reroll
+                        </button>
+                    </div>
+                    <div class="rerollCounter">Remaining Rerolls: <span id="rerollCounter">0</span></div>
+                </div>
+            </div>
+
+            <div id="prompts-overlay" class="hidden">
+                <div class="prompts-modal">
+                    <button id="close-prompts-btn" class="close-overlay-btn"><span>&times;</span></button>
+                    <h2 class="overlay-title">My Prompts</h2>
+
+                    <div class="current-prompt">
+                        <strong>Current:</strong>
+                        <span id="current-prompt">"You do not have a current prompt. Roll to continue."</span>
+                    </div>
+
+                    <div class="complete-prompt">
+                        <input type="text" id="book-title-input" placeholder="Enter Book Title">
+                        <button id="complete-btn">Complete</button>
+                        <button id="reject-btn">Reject</button>
+                    </div>
+                    <div class="prompt-history">
+                        <h3>History</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Prompt</th>
+                                        <th>Book Title</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prompt-history-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div id="rules-overlay" class="hidden">
+                <div class="rules-modal">
+                    <button id="close-rules-btn" class="close-overlay-btn">
+                        &times;
+                    </button>
+
+                    <h2 class="overlay-title">Game Rules</h2>
+
+                    <iframe id="rules-frame" src="assets/rules.pdf"
+                        style="width:100%; height:500px; border:none;"></iframe>
+                </div>
+            </div>
+            <div id="prompts-overlay" class="hidden">
+                <div class="prompts-modal">
+                    <button id="close-prompts-btn" class="close-overlay-btn"><span>&times;</span></button>
+                    <h2 class="overlay-title">My Prompts</h2>
+
+                    <div class="current-prompt">
+                        <strong>Current:</strong>
+                        <span id="current-prompt">"You do not have a current prompt. Roll to continue."</span>
+                    </div>
+
+                    <div class="complete-prompt">
+                        <input type="text" id="book-title-input" placeholder="Enter Book Title">
+                        <button id="complete-btn">Complete</button>
+                        <button id="reject-btn">Reject</button>
+                    </div>
+
+                    <div class="prompt-history">
+                        <h3>History</h3>
+                        <div class="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Prompt</th>
+                                        <th>Book Title</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prompt-history-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="select-prompt-overlay" class="hidden">
+                <div class="prompts-modal">
+
+                    <h2 class="overlay-title">Select a Prompt</h2>
+
+                    <input type="text" id="prompt-search" placeholder="Search prompts..." class="prompt-search" />
+
+                    <div class="prompt-list-wrapper">
+                        <ul id="prompt-list" class="prompt-list">
+
+
+                        </ul>
+                    </div>
+
+                    <div class="modal-actions">
+
+                        <button id="confirm-select-prompt-btn" class="primary-btn" disabled>
+                            Select Prompt
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="move-spaces-overlay" class="hidden">
+                <div class="prompts-modal">
+                    <h2 class="overlay-title">Move Spaces</h2>
+
+                    <div class="move-spaces-buttons">
+                        <button class="space-btn" data-spaces="1">One Space</button>
+                        <button class="space-btn" data-spaces="2">Two Spaces</button>
+                        <button class="space-btn" data-spaces="3">Three Spaces</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="settings-overlay" class="hidden">
+                <div class="settings-modal">
+                    <button id="close-settings-btn" class="close-overlay-btn">&times;</button>
+
+                    <h2 class="overlay-title">Settings</h2>
+
+                    <div class="settings-buttons">
+                        <button id="download-save-btn">Download Save</button>
+                        <button id="load-save-btn">Load Save</button>
+                        <button id="restart-game-btn">Restart Game</button>
+                    </div>
+
+                    <div id="confirm-restart" class="hidden confirm-modal">
+                        <p>⚠️ Are you sure you want to restart the game? This will erase all progress!</p>
+                        <button id="confirm-restart-yes">Yes, Restart</button>
+                        <button id="confirm-restart-no">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <script src="js/lib/d3.v7.min.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

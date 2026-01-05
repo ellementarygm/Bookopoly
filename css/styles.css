@@ -1,0 +1,1435 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    font-family: Arial, sans-serif;
+    background: #eeb3b2;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#board-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+    width: 710px;
+    height: 710px;
+    border: 3px solid rgb(221, 178, 177);
+    border-radius: 5px;
+    position: relative;
+}
+
+#board {
+    background: #fff;
+}
+
+
+#dice-overlay {
+    position: absolute;       
+    inset: 0;                
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.3);
+    perspective: 1000px;    
+    z-index: 50;             
+}
+
+
+
+#select-prompt-overlay.hidden, 
+#dice-overlay.hidden,
+#rules-overlay.hidden,
+#settings-overlay.hidden {
+    display: none;
+}
+
+#cube {
+    width: 100px;
+    height: 100px;
+    transform-style: preserve-3d;
+    transition: transform 1s ease-in-out;
+    position: relative;
+    top: 50px;
+}
+
+#cube div {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: #bd4a49ee;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    backface-visibility: hidden;
+}
+
+#cube .front {
+    transform: translateZ(50px);
+}
+
+#cube .back {
+    transform: rotateY(180deg) translateZ(50px);
+}
+
+#cube .right {
+    transform: rotateY(90deg) translateZ(50px);
+}
+
+#cube .left {
+    transform: rotateY(-90deg) translateZ(50px);
+}
+
+#cube .top {
+    transform: rotateX(90deg) translateZ(50px);
+}
+
+#cube .bottom {
+    transform: rotateX(-90deg) rotateZ(90deg) translateZ(50px);
+}
+
+/* Dice dots */
+.dot {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    border-radius: 50%;
+}
+
+/* simplified dot positions */
+.front .dot1 {
+    top: 42px;
+    left: 42px;
+}
+
+.back .dot1 {
+    top: 22px;
+    left: 22px;
+}
+
+.back .dot2 {
+    top: 62px;
+    left: 62px;
+}
+
+.right .dot1 {
+    top: 22px;
+    left: 22px;
+}
+
+.right .dot2 {
+    top: 42px;
+    left: 42px;
+}
+
+.right .dot3 {
+    top: 62px;
+    left: 62px;
+}
+
+.left .dot1 {
+    top: 22px;
+    left: 22px;
+}
+
+.left .dot2 {
+    top: 22px;
+    left: 62px;
+}
+
+.left .dot3 {
+    top: 62px;
+    left: 22px;
+}
+
+.left .dot4 {
+    top: 62px;
+    left: 62px;
+}
+
+.top .dot1 {
+    top: 22px;
+    left: 22px;
+}
+
+.top .dot2 {
+    top: 22px;
+    left: 62px;
+}
+
+.top .dot3 {
+    top: 42px;
+    left: 42px;
+}
+
+.top .dot4 {
+    top: 62px;
+    left: 22px;
+}
+
+.top .dot5 {
+    top: 62px;
+    left: 62px;
+}
+
+.bottom .dot1 {
+    top: 22px;
+    left: 22px;
+}
+
+.bottom .dot2 {
+    top: 22px;
+    left: 42px;
+}
+
+.bottom .dot3 {
+    top: 22px;
+    left: 62px;
+}
+
+.bottom .dot4 {
+    top: 62px;
+    left: 22px;
+}
+
+.bottom .dot5 {
+    top: 62px;
+    left: 42px;
+}
+
+.bottom .dot6 {
+    top: 62px;
+    left: 62px;
+}
+
+/* =======================
+   Dice Result Banner
+======================= */
+#dice-result-banner {
+    position: absolute;
+    z-index: 10;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #f0f8ff;
+    border: 4px solid #bd4a49;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 180px;
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#dice-result-banner.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+#dice-result-banner button {
+    background-color: #3b748a;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#dice-result-banner button:hover {
+    background-color: #2a5260;
+}
+
+#dice-result-text {
+    font-family: "Pacifico", cursive;
+    font-size: 40px;
+    color: #fff;
+    text-shadow: 3px 2px #bd4a49;
+}
+.rerollCounter {
+    font-size: 16px;
+}
+#rerollCounter {
+    color: #fff;
+    text-shadow: 1px 1px #bd4a49;
+}
+/* =======================
+   Roll Button
+======================= */
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 12px;
+    margin-top: 20px;
+    align-items: center;
+    width: min(700px, 95vw);
+    margin: auto;
+}
+.buttons button {
+    /* min-width: 120px; */
+    white-space: nowrap;
+}
+button {
+    padding: 8px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #bd4a49;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background: #9e3f3e;
+}
+
+button:disabled, #go-reward-btn:disabled, #complete-btn:disabled , #reject-btn:disabled, #play-btn:disabled, #reroll-roll:disabled {
+    background: #aaa;
+    cursor: not-allowed;
+
+}
+#reroll-roll:disabled:hover, #go-reward-btn:disabled:hover {
+    background: #aaaaaa;
+}
+/* =======================
+   Player Token SVG
+======================= */
+.player-token {
+    width: 24px;
+    height: 24px;
+    transform: translate(-12px, -12px);
+}
+
+/* =======================
+   Dice Result Banner Modal
+======================= */
+#dice-result-banner {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: #00000080;
+    color: #fff;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    overflow: hidden;
+    z-index: 1000;
+}
+
+
+#dice-result-banner.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -30%) scale(1);
+}
+
+#dice-result-buttons {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#dice-result-buttons button {
+    width: 120px;
+    padding: 8px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #bd4a49;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#dice-result-buttons button:hover {
+    background: #9e3f3e;
+}
+
+#dice-result-buttons button.cancel-btn {
+    background: #aaa;
+    color: #222;
+}
+
+#dice-result-buttons button.cancel-btn:hover {
+    background: #777;
+}
+
+#dice-result-buttons button.reroll-btn {
+    background: #ff9800;
+    color: #fff;
+}
+
+#dice-result-buttons button.reroll-btn:hover {
+    background: #e68900;
+}
+
+.particle {
+    z-index: 1;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: #ffd387;
+    pointer-events: none;
+    opacity: 1;
+    transition: transform 1.2s ease-out, opacity 1.2s ease-out;
+
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%,
+            68% 57%, 79% 91%, 50% 70%,
+            21% 91%, 32% 57%, 2% 35%,
+            39% 35%);
+    filter:
+        drop-shadow(0 0 5px #fff9b0) drop-shadow(0 0 10px #ffe69c) drop-shadow(0 0 15px #ffd387) drop-shadow(0 0 20px #ffca63);
+}
+
+#space-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+#cards-overlay.hidden {
+    display: none;
+}
+
+#space-overlay.hidden {
+    display: none;
+}
+
+.space-modal {
+    position: relative;
+    animation: modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    top: 0px;
+}
+
+.space-frame {
+    border: 8px solid #000;
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.space-frame img {
+    width: 200px;
+    max-width: 90vw;
+    height: auto;
+    display: block;
+}
+
+#close-space-overlay {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    background: #ffffffde;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#close-space-overlay:hover {
+    background: #000;
+    color: #fff;
+}
+
+@keyframes modalIn {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* =======================
+   Card Container
+   ======================= */
+.card {
+    width: 200px;
+    perspective: 1000px;
+    position: relative;
+}
+
+/* =======================
+   Pulse Wrapper (scale only)
+   ======================= */
+.card-pulse {
+    width: 100%;
+    height: 100%;
+}
+
+/* =======================
+   Rotation Wrapper (rotate Z only)
+   ======================= */
+.card-rotate {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.4s ease;
+    transform-origin: center;
+}
+
+/* =======================
+   Flip Container (rotate Y only)
+   ======================= */
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg);
+    transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Flip */
+.card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+/* =======================
+   Card Faces
+   ======================= */
+.card-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    background: #fff;
+    border: 4px solid #000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Front face */
+.card-front {
+    transform: rotateY(180deg);
+}
+
+/* Back face */
+.card-back {
+    transform: rotateY(0deg);
+}
+
+/* Images */
+.card-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* =======================
+   Hint Pulse Animation
+   ======================= */
+.card-pulse.hint {
+    animation: hintPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes glowBloom {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.85;
+        transform: scale(1);
+    }
+}
+
+/* =======================
+   CARD PARTICLES
+======================= */
+
+.card-particle {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: radial-gradient(circle, #fff7c2 0%, #ffd36b 60%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 3000;
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    transition:
+        transform 0.9s ease-out,
+        opacity 0.9s ease-out;
+    filter:
+        drop-shadow(0 0 6px #ffe9a3) drop-shadow(0 0 12px #ffd36b);
+}
+
+.card-inner {
+    aspect-ratio: 200 / 320;
+}
+
+#card-front {
+    position: relative;
+    aspect-ratio: 200 / 320;
+}
+
+#card-front img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#card-text-overlay {
+    position: absolute;
+    top: 90px;
+    left: 15px;
+    right: 15px;
+    bottom: 20px;
+    color: #000;
+    text-shadow: 1px 1px 4px #fff;
+    overflow-y: auto;
+    pointer-events: none;
+}
+
+.card-text-overlay {
+    color: #000;
+    text-shadow: 1px 1px 4px #fff;
+    position: absolute;
+    padding: 12px;
+    top: 70px;
+}
+
+#card-title,
+.card-title {
+    font-size: 20px;
+    margin: 0 0 25px 0;
+    text-align: center;
+}
+
+#card-desc,
+.card-desc {
+    font-size: 16px;
+    margin: 0;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* =======================
+   SHARED GLOW BLOOM
+======================= */
+.glow-bloom {
+    position: relative;
+}
+
+.glow-bloom::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    pointer-events: none;
+    opacity: 0;
+    box-shadow:
+        0 0 20px rgba(255, 215, 120, 0.9),
+        0 0 40px rgba(255, 200, 90, 0.7),
+        0 0 70px rgba(255, 170, 60, 0.5);
+    animation: glowBloom 1.2s ease-out forwards;
+}
+
+/* Button positioning context */
+.icon-btn.has-badge {
+    position: relative;
+}
+
+/* SIMPLE, CLEAN BADGE */
+.icon-btn .badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #d32f2f;
+    border: 2px solid #ffd5d5;
+    color: #fff;
+
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+
+    border-radius: 999px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+
+    pointer-events: none;
+}
+
+/* Animate ONLY when updated */
+.icon-btn .badge.updated {
+    animation: badge-pop 0.25s ease-out;
+}
+
+@keyframes badge-pop {
+    0% {
+        transform: scale(0.8);
+        opacity: 0.6;
+    }
+
+    70% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Optional: smaller on tiny screens */
+@media (max-width: 480px) {
+    .icon-btn .badge {
+        min-width: 18px;
+        height: 18px;
+        font-size: 10px;
+    }
+}
+
+#take-card-btn {
+    position: absolute;
+    top: 100%;
+    
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    
+
+    padding: 12px 28px;
+    font-size: 18px;
+    font-weight: bold;
+
+    background: #bd4a49;
+    color: #fff;
+
+    border: 3px solid #fff;
+    border-radius: 999px;
+
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+
+    transition: transform 0.15s ease, background 0.15s ease;
+    z-index: 10;
+    
+    width: 200px;
+    height: 50px;
+}
+
+#take-card-btn:hover {
+    background: #9e3f3e;
+    transform: translateX(-50%) translateY(18px);
+}
+
+#take-card-btn:active {
+    transform: translateX(-50%) translateY(20px);
+}
+
+.rotate-top {
+    transform: rotate(180deg);
+}
+
+.rotate-bottom {
+    transform: rotate(0deg);
+}
+
+/* Overlay covering the screen */
+#cards-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+/* Cards container */
+#player-cards {
+    position: relative;
+    width: 800px;
+    height: 360px;
+
+    perspective: 1600px;
+    transform-style: preserve-3d;
+}
+.no-select {
+  user-select: none;      
+  -webkit-user-select: none;
+  -moz-user-select: none;    
+  -ms-user-select: none;     
+}
+/* Base card */
+#player-cards > .player-card {
+    background: #fff;
+    border: 4px solid #000;
+}
+
+#card-front-img, .card-front-img {
+    width: 100%;
+}
+.player-card {
+    position: absolute;
+    width: 200px;
+    aspect-ratio: 200 / 320;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+
+    transition: transform 0.7s ease, opacity 0.7s ease;
+    
+}
+#left-card, #right-card{
+    cursor: pointer;
+}
+#left-card:hover, #right-card:hover{
+    box-shadow:
+        0 0 20px rgba(255, 215, 120, 0.9),
+        0 0 40px rgba(255, 200, 90, 0.7),
+        0 0 70px rgba(255, 170, 60, 0.5);
+}
+/* Center card comes forward */
+.current-card {
+    transform: rotateY(0deg) translateZ(150px) scale(1);
+    opacity: 1;
+    z-index: 3;
+    cursor: default;
+}
+
+
+/* Left card: rotated around cylinder */
+.left-card {
+    transform: rotateY(45deg) translateZ(150px);
+    opacity: 0.6;
+    z-index: 2;
+    cursor: pointer;
+}
+
+/* Right card: rotated around cylinder */
+.right-card {
+    transform: rotateY(-45deg) translateZ(150px);
+    opacity: 0.6;
+    z-index: 2;
+    cursor: pointer;
+}
+
+
+/* Play Card button */
+#play-btn {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+
+}
+
+#close-btn {
+    position: absolute;
+    top: 18%;
+    right: 1%;
+    padding: 4px 8px;
+}
+
+#prompts-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+#prompts-overlay.hidden {
+    display: none;
+}
+.prompts-modal {
+    position: relative;
+    background: #ffffffdd;
+    padding: 5px 20px 24px 20px;
+    border: 4px solid #bd4a49;
+    border-radius: 16px;
+    width: 600px;
+    max-height: 95%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    animation: modalIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.current-prompt {
+    font-size: 18px;
+    color: #000;
+    text-shadow: 1px 1px 4px #fff;
+}
+
+.complete-prompt {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.complete-prompt input {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #bd4a49;
+    border-radius: 8px;
+}
+
+.complete-prompt button {
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    background: #bd4a49;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.complete-prompt button:hover {
+    background: #9e3f3e;
+}
+.prompt-history {
+    margin-top: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.prompt-history h3 {
+    text-align: left;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+.table-wrapper {
+    max-height: 400px; 
+    overflow-y: auto; 
+    border: 2px solid #bd4a49;
+    border-radius: 8px;
+}
+
+.table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #000;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #000;
+    text-align: left;
+}
+
+/* Sticky header */
+.table-wrapper thead th {
+    background: #bd4a49;
+    color: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.table-wrapper tbody tr:nth-child(odd) {
+    background: #ffeaea; 
+}
+
+.table-wrapper tbody tr:nth-child(even) {
+    background: #ffffff; 
+}
+
+.table-wrapper tbody tr:hover {
+    background: #ffd5d5; 
+}
+.close-overlay-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 4px 8px;
+    background: #bd4a49;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    z-index: 10;
+}
+.close-overlay-btn > span {
+    transform: translateY(-2px);
+}
+.close-overlay-btn:hover {
+    background: #9e3f3e;
+}
+.overlay-title {
+    font-family: "Pacifico", cursive;
+    text-shadow: 3px 2px #fff;
+    font-size: 40px;
+    margin-bottom: 16px;
+    color: #bd4a49;
+    text-align: center;
+}
+.edit-btn {
+    background: none;
+    border: 2px solid transparent; 
+    color: #fff;
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease; 
+}
+.edit-btn img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+}
+.edit-btn:hover {
+    border-color: #fff;
+    background: none;
+}
+
+.edit-btn:active {
+    transform: none;
+}
+.table-wrapper th:last-child,
+.table-wrapper td:last-child {
+    width: 40px;        
+    text-align: center;
+    padding: 4px 6px;   
+}
+
+.table-wrapper th:last-child {
+    background: #bd4a49;
+}
+
+#select-prompt-overlay {
+    position: absolute;
+}
+.prompt-search {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.prompt-list-wrapper {
+    max-height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.prompt-list {
+    min-height: 298px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.prompt-list li {
+    padding: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    background: #eaeaea;
+    border: 2px solid #fff;
+    transition: background 0.2s;
+}
+
+.prompt-list li:hover {
+    background: #cfcfcf;
+}
+
+.prompt-list li.selected {
+    background: #bd4a49;
+    color:#fff;
+    border: 2px solid #fff;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.primary-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.move-spaces-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.space-btn {
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    border: 2px solid #fff;
+    background-color: #bd4a49;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.space-btn:hover {
+    background: #9e3f3e;
+    border-color: #9e3f3e;
+}
+
+.space-btn:active {
+    background-color: #cce0ff;
+}
+#move-spaces-overlay{
+    position: absolute;
+}
+#move-spaces-overlay.hidden {
+    display: none;
+}
+#goCounter { 
+    position: absolute;
+}
+
+.goCounter {
+    bottom: 100px;
+    right: 110px;
+    max-width: 420px;
+    margin: 12px auto;
+    padding: 14px 18px;
+
+    background: linear-gradient(135deg, #ffffffcc 0%, #f6f9ffcc 100%);
+    border-radius: 16px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* Left & right groups */
+.goCounter > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Section titles */
+.goCounter p.cursive {
+    font-family: "Pacifico", cursive;
+    text-align: center;
+}
+.goCounter p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #222;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    text-align: right;
+}
+
+/* Numbers emphasized */
+#goCounterEarned,
+#goCounterClaimed {
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+/* Button styling */
+#go-reward-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 12px;
+
+    background: #bd4a49;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+/* Button hover / active states */
+#go-reward-btn:hover {
+    background: #9e3f3e;
+}
+
+#go-reward-btn:active {
+    transform: translateY(0px);
+}
+
+.goParticle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: gold;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: burst 1s forwards;
+}
+
+@keyframes burst {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0);
+    opacity: 0;
+  }
+}
+
+#rules-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.rules-modal {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    background: #ffffffdd;
+    border-radius: 12px;
+    padding: 20px;
+    max-height: 90%;
+}
+
+.hidden {
+    display: none;
+}
+
+#settings-btn {
+    min-width: 45px;
+    width: 45px;
+    padding: 8px;
+}
+
+
+.settings-modal {  
+    background: #ffffffdd;
+    padding: 5px 20px 24px 20px;
+    border: 4px solid #bd4a49;
+    height: fit-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 300px;
+    text-align: center;
+    z-index: 1000;
+}
+.settings-modal .close-overlay-btn {
+    background: #bd4a49;
+}.settings-modal .close-overlay-btn:hover {
+    background: #9e3f3e;
+}
+.settings-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.settings-btn {
+    padding: 8px 16px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #bd4a49;
+    border: 2px solid #fff;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.settings-btn:hover {
+    background: #9e3f3e;
+}
+
+#settings-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    z-index: 1000;
+}
+
+.settings-modal {
+    background: #ffffffdd;;
+    padding: 20px;
+    border-radius: 12px;
+    width: 400px;
+    position: relative;
+    text-align: center;
+}
+
+
+.settings-buttons button {
+
+    margin: 10px 0;
+    padding: 10px 20px;
+    width: 80%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.confirm-modal {
+    background: #f8d7da;
+    border: 2px solid #f5c2c7;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.confirm-modal button {
+    margin: 5px;
+}
+
+#game-scale {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#board-wrapper {
+    transform-origin: top center;
+}
+
+@media (max-width: 1024px) {
+    #board-wrapper {
+        transform: scale(0.9);
+    }
+}
+
+@media (max-width: 900px) {
+    #board-wrapper {
+        transform: scale(0.8);
+    }
+}
+
+@media (max-width: 768px) {
+    #board-wrapper {
+        transform: scale(0.7);
+    }
+
+    .button {
+        font-size: 12px;
+    }
+}
+
+.bottomControls {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: calc(0% - 60px);
+}

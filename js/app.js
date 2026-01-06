@@ -1786,7 +1786,6 @@ function autoFlipCard(spaceType) {
 
     closeSpaceOverlay.style.display = "none";
 
-
     cardInner.classList.remove("flipped", "revealed", "glow-bloom");
     cardPulse.classList.remove("hint");
 
@@ -1798,7 +1797,6 @@ function autoFlipCard(spaceType) {
     frontTitle.textContent = "";
     frontDesc.textContent = "";
     frontTitle.style.display = "none";
-
 
     requestAnimationFrame(() => {
         requestAnimationFrame(() => {
@@ -1824,7 +1822,7 @@ function autoFlipCard(spaceType) {
                             frontTitle.style.display = "block";
 
                             typeTextStable(frontTitle, "You Hoarder!", 40, () => {
-                                typeTextStable(frontDesc, "Sorry, there are no more cards left! Play some of your cards....", 20, () => {
+                                typeTextStable(frontDesc, "Sorry, there are no more cards left! Play some of your cards...", 20, () => {
                                     closeSpaceOverlay.style.display = "block";
                                 });
                             });
@@ -1851,6 +1849,7 @@ function autoFlipCard(spaceType) {
 
                     if (spaceType === "chance" && board.chanceCards?.length) {
                         const card = board.chanceCards[Math.floor(Math.random() * board.chanceCards.length)];
+                        
                         player1.currentChance = structuredClone(card);
 
                         if (card?.modifier === "month") {

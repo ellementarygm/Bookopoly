@@ -971,8 +971,8 @@ class Player {
         });
 
         const img = document.createElement("img");
-        img.src = "/assets/EditIcon.svg";
-        img.alt = "Edit";
+        img.src = "assets/Edit.svg";
+        img.alt = "✏️";
 
         btn.appendChild(img);
         tdActions.appendChild(btn);

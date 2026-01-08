@@ -170,7 +170,11 @@ class Board {
             .raise();
     }
 }
-
+function getDate() {
+    const today = new Date();
+    const local = today.toLocaleDateString('en-CA');
+    return local;
+}
 
 const completeBtn = document.getElementById("complete-btn");
 const rejectBtn = document.getElementById("reject-btn");
@@ -178,15 +182,13 @@ const bookInput = document.getElementById("book-title-input");
 completeBtn.onclick = () => {
     if (bookInput.value == "") { return; }
     let title = bookInput.value;
-    bookInput.value = ""
-    const today = new Date().toISOString().split('T')[0];
-    player1.completePrompt(title, today);
+    bookInput.value = "";
+    player1.completePrompt(title, getDate());
 
 };
-rejectBtn.onclick = () => {
-    const today = new Date().toISOString().split('T')[0];
+rejectBtn.onclick = () => {  
     rejectBtn.disabled = true;
-    player1.rejectPrompt(today);
+    player1.rejectPrompt(getDate());
     player1.saveToLocal();
 };
 function getSeasonalWords(index) {
@@ -436,12 +438,11 @@ class Player {
             "move_to_index": () => {
                 let destination = this.playedCard.destination;
                 if (this.hasPrompt) {
-                    const today = new Date().toISOString().split('T')[0];
 
                     let data = {
                         "prompt": this.getCurrentPrompt(),
                         "title": `PROMPT SKIPPED (${this.playedCard.title})`,
-                        "date": today
+                        "date":  getDate()
                     }
                     this.history.push(data);
                     this.hasPrompt = false;
@@ -450,19 +451,17 @@ class Player {
                 this.moveToIndex(destination);
             },
             "reject_prompt": () => {
-                const today = new Date().toISOString().split('T')[0];
-                this.rejectPrompt(today, false);
+                this.rejectPrompt( getDate(), false);
             },
             "reroll": () => {
                 this.rerollCount++;
             },
             "dnf_prompt": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     "prompt": this.getCurrentPrompt(),
                     "title": `DNF PROMPT. (${this.playedCard.title})`,
-                    "date": today
+                    "date":  getDate()
                 }
                 this.history.push(data);
                 this.currentPrompt = "You do not have a current prompt. Roll to continue.";
@@ -472,12 +471,11 @@ class Player {
                 rollBtn.disabled = false;
             },
             "choose_any_chance": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     "prompt": this.getCurrentPrompt(),
                     "title": `PROMPT REPLACED. (${this.playedCard.title})`,
-                    "date": today
+                    "date":  getDate()
                 }
                 this.history.push(data);
 
@@ -486,12 +484,11 @@ class Player {
             },
             "choose_any_prompt": () => {
                 if (this.hasPrompt) {
-                    const today = new Date().toISOString().split('T')[0];
 
                     let data = {
                         "prompt": this.getCurrentPrompt(),
                         "title": `PROMPT REPLACED. (${this.playedCard.title})`,
-                        "date": today
+                        "date":  getDate()
                     }
                     this.history.push(data);
                 }
@@ -509,12 +506,11 @@ class Player {
                 }
                 let current = getCurrentSeason();
                 if (this.hasPrompt) {
-                    const today = new Date().toISOString().split('T')[0];
 
                     let data = {
                         "prompt": this.getCurrentPrompt(),
                         "title": `PROMPT SKIPPED (${this.playedCard.title})`,
-                        "date": today
+                        "date":  getDate()
                     }
                     this.history.push(data);
                     this.hasPrompt = false;
@@ -523,12 +519,11 @@ class Player {
                 this.moveToIndex(seasons[current]);
             },
             "remove_jail": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     prompt: this.currentPrompt,
                     title: `JAIL REMOVED. (${this.playedCard.title})`,
-                    date: today
+                    date:  getDate()
                 };
 
                 this.jailCount = this.jailCount + 1;
@@ -553,12 +548,11 @@ class Player {
                 this.setPromptWindow();
             },
             "replace_prompt": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     "prompt": this.getCurrentPrompt(),
                     "title": `PROMPT REPLACED. (${this.playedCard.title})`,
-                    "date": today
+                    "date":  getDate()
                 }
                 this.history.push(data);
 
@@ -570,12 +564,11 @@ class Player {
                 this.setPromptWindow();
             },
             "skip_prompt": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     prompt: this.getCurrentPrompt(),
                     title: `PROMPT SKIPPED. (${this.playedCard.title})`,
-                    date: today
+                    date:  getDate()
                 };
                 this.history.push(data);
 
@@ -588,12 +581,11 @@ class Player {
             "swap_prompt_across": () => {
                 let index = getAcrossIndex(this.space.index);
                 let prompt = spacePrompts?.[index] ? spacePrompts[index] : "Error in your favor, choose any prompt!";
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     prompt: this.getCurrentPrompt(),
                     title: `PROMPT SWAPPED. (${this.playedCard.title})`,
-                    date: today
+                    date:  getDate()
                 };
                 this.history.push(data);
 
@@ -604,12 +596,11 @@ class Player {
                 this.setPromptWindow();
             },
             "swap_prompt_color": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     "prompt": this.getCurrentPrompt(),
                     "title": `PROMPT SWAPPED. (${this.playedCard.title})`,
-                    "date": today
+                    "date":  getDate()
                 }
                 this.history.push(data);
 
@@ -644,12 +635,11 @@ class Player {
 
                 const index = this.space.index;
 
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     "prompt": this.getCurrentPrompt(),
                     "title": `PROMPT SWAPPED. (${this.playedCard.title})`,
-                    "date": today
+                    "date":  getDate()
                 }
                 this.history.push(data);
 
@@ -666,12 +656,11 @@ class Player {
                 const currentIndex = this.space.index;
                 let index = seasonal.find(i => i > currentIndex) ?? seasonal[0];
                 if (this.hasPrompt) {
-                    const today = new Date().toISOString().split('T')[0];
 
                     let data = {
                         "prompt": this.getCurrentPrompt(),
                         "title": `PROMPT SKIPPED (${this.playedCard.title})`,
-                        "date": today
+                        "date":  getDate()
                     }
                     this.history.push(data);
                     this.hasPrompt = false;
@@ -684,12 +673,11 @@ class Player {
                 const currentIndex = this.space.index;
                 let index = utility.find(i => i > currentIndex) ?? utility[0];
                 if (this.hasPrompt) {
-                    const today = new Date().toISOString().split('T')[0];
 
                     let data = {
                         "prompt": this.getCurrentPrompt(),
                         "title": `PROMPT SKIPPED (${this.playedCard.title})`,
-                        "date": today
+                        "date":  getDate()
                     }
                     this.history.push(data);
                     this.hasPrompt = false;
@@ -701,12 +689,11 @@ class Player {
                 this.doubleGo = true;
             },
             "move_to_any_three": () => {
-                const today = new Date().toISOString().split('T')[0];
 
                 let data = {
                     prompt: this.getCurrentPrompt(),
                     title: `PROMPT SKIPPED. (${this.playedCard.title})`,
-                    date: today
+                    date:  getDate()
                 };
                 this.history.push(data);
 

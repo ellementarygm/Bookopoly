@@ -220,7 +220,7 @@
         "index": 37,
         "path": "assets/Blue1.svg",
         "type": "basic",
-        "prompt": "The lowest rated book on your To Be Read (TBR) list"
+        "prompt": "A banned or challenged book or a book by a “canceled” author"
     },
     {
         "index": 38,
@@ -232,6 +232,6 @@
         "index": 39,
         "path": "assets/Blue2.svg",
         "type": "basic",
-        "prompt":  "The highest rated book on your To Be Read (TBR) list"
+        "prompt":  "A “popular this week” book on SG or a GR Choice book"
     }
 ]

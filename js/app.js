@@ -975,7 +975,7 @@ class Player {
             if (this.inJail) {
                 this.currentPrompt = `${this.currentChance.description} (Jail: ${this.jailCount}/2)`;
             } else {
-                this.currentPrompt = this.currentChance.description;
+                this.currentPrompt = this.currentChance?.description || this.currentPrompt;
             }
         }
         return this.currentPrompt;

@@ -327,6 +327,7 @@ class Player {
         player.moveToDestination = state.moveToDestination;
         player.animalToGo = state.animalToGo;
         player.canRoll = state.canRoll;
+        player.currentChance = state.currentChance || null;
 
         player.placeOnIndex(state.index);
         const badge = document.getElementById("card-badge");
@@ -350,7 +351,8 @@ class Player {
             hasDoubleChance: this.hasDoubleChance,
             moveToDestination: this.moveToDestination,
             animalToGo: this.animalToGo,
-            canRoll: this.canRoll
+            canRoll: this.canRoll,
+            currentChance: this.currentChance
         };
     }
     // -----------------------

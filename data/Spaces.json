@@ -31,7 +31,7 @@
         "index": 5,
         "path": "assets/SeasonalSpring.svg",
         "type": "basic",
-        "prompt": "Seasonal Read: A book set in spring"
+        "prompt": "Seasonal Read: A book with a spring vibe"
     },
     {
         "index": 6,
@@ -91,7 +91,7 @@
         "index": 15,
         "path": "assets/SeasonalSummer.svg",
         "type": "basic",
-        "prompt": "Seasonal Read: A book set in summer"
+        "prompt": "Seasonal Read: A book with a summer vibe"
     },
     {
         "index": 16,
@@ -149,7 +149,7 @@
         "index": 25,
         "path": "assets/SeasonalAutumn.svg",
         "type": "basic",
-        "prompt": "Seasonal Read: A book set in autumn"
+        "prompt": "Seasonal Read: A book with an autumn vibe"
     },
     {
         "index": 26,
@@ -209,7 +209,7 @@
         "index": 35,
         "path": "assets/SeasonalWinter.svg",
         "type": "basic",
-        "prompt": "Seasonal Read: A book set in winter"
+        "prompt": "Seasonal Read: A book with a winter vibe"
     },
     {
         "index": 36,
